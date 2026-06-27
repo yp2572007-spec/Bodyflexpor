@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexLog Pro | 20+ Static Exercise Reference Guides</title>
+    <style>
+        /* --- Global Custom Design Variables --- */
+        :root {
+            --primary: #00ff88;
+            --primary-dark: #00b35f;
+            --dark: #121214;
+            --surface: #1e1e24;
+            --text: #ffffff;
+            --text-muted: #a1a1aa;
+            --light-bg: #f4f4f5;
+            --accent-red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* --- Header Top Nav --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: var(--surface);
+            border-bottom: 1px solid #2d2d34;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--primary);
+            cursor: pointer;
+            letter-spacing: -0.5px;
+        }
+
+        header nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        header nav a:hover {
+            color: var(--primary);
+        }
+
+        /* --- Hero Billboard --- */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(18, 18, 20, 0.85), rgba(18, 18, 20, 0.98)), 
+                        url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1200') no-repeat center/cover;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 0 auto 25px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--dark);
+            padding: 12px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* --- Interactive Categories Filter --- */
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 35px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid #3f3f46;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+            border-color: var(--primary);
+        }
+
+        /* --- Main Dynamic Exercise Card Grid --- */
+        .workout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .workout-card {
+            background-color: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+            border: 1px solid #2d2d34;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .workout-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 255, 136, 0.08);
+        }
+
+        .photo-container {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background-color: #2d2d34;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .workout-card:hover .photo-container img {
+            transform: scale(1.04);
+        }
+
+        .card-content {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            align-self: flex-start;
+            background-color: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .card-content p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* --- Full Screen Detail Layout Workspace --- */
+        #exercise-detail-page {
+            display: none;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-page-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 1.9fr;
+            gap: 40px;
+            margin-top: 15px;
+        }
+
+        .main-hero-image-wrapper {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            border: 1px solid #2d2d34;
+        }
+
+        .main-hero-image-wrapper img {
+            width: 100%;
+            display: block;
+            height: auto;
+            max-height: 480px;
+            object-fit: cover;
+        }
+
+        .info-pane {
+            background-color: var(--surface);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #2d2d34;
+        }
+
+        .info-pane h2 {
+            margin-bottom: 8px;
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .info-pane .exercise-description {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+        }
+
+        .instruction-box {
+            background-color: #27272a;
+            border-radius: 6px;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .instruction-box h4 {
+            color: #fff;
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+        }
+
+        .instruction-box ol {
+            padding-left: 20px;
+            color: #e4e4e7;
+            line-height: 1.7;
+        }
+
+        .instruction-box ol li {
+            margin-bottom: 8px;
+        }
+
+        .mistakes-box {
+            background-color: rgba(239, 68, 68, 0.08);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-red);
+        }
+
+        .mistakes-box h5 {
+            color: #fca5a5;
+            margin-bottom: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .mistakes-box p {
+            color: #fca5a5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .target-box {
+            padding: 15px 0;
+            border-top: 1px solid #3f3f46;
+            margin-top: 20px;
+        }
+
+        .target-box span {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .btn-back {
+            background-color: #2d2d34;
+            color: #fff;
+            margin-bottom: 15px;
+            border: 1px solid #3f3f46;
+        }
+        .btn-back:hover {
+            background-color: #3f3f46;
+        }
+
+        /* --- Performance Analytics Section --- */
+        .bg-light {
+            background-color: var(--light-bg);
+            color: #121214;
+        }
+
+        .tracker-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1.8fr;
+            gap: 45px;
+        }
+
+        @media (max-width: 900px) {
+            .tracker-container, .detail-page-layout { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+        }
+
+        /* --- Form Standardizations --- */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            background-color: #fff;
+        }
+
+        .btn-block {
+            width: 100%;
+            background-color: var(--dark);
+            color: var(--primary);
+        }
+        .btn-block:hover {
+            background-color: #000;
+        }
+
+        /* --- Metrics Local Records Window --- */
+        #log-history {
+            margin-top: 10px;
+            max-height: 340px;
+            overflow-y: auto;
+        }
+
+        .log-item {
+            background: #fff;
+            padding: 14px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 5px solid var(--primary-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+        }
+
+        .log-item span {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .empty-message {
+            color: #666;
+            font-style: italic;
+        }
+
+        .btn-secondary {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: var(--surface);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid #2d2d34;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Anchor bar -->
+    <header>
+        <div class="logo" id="logo-btn">FlexLog Pro</div>
+        <nav>
+            <a href="#workouts" id="nav-workouts">Exercises</a>
+            <a href="#tracker">Metrics Tracker</a>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        
+        <!-- Hero Section Frame -->
+        <section class="hero" id="hero-section">
+            <h1>Visual Form Database</h1>
+            <p>Study 20+ foundation blueprints with static photos and structural breakdown templates. No heavy video streams required.</p>
+            <a href="#workouts" class="btn">View All 20+ Exercises</a>
+        </section>
+
+        <!-- Dynamic Workouts Engine -->
+        <section id="workouts" class="container">
+            <h2>Exercise Blueprints</h2>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">Select a target card below to show structural photographic form lines, posture steps, and safe execution goals.</p>
+            
+            <!-- Dynamic UI Category Selectors -->
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All Movements (21)</button>
+                <button class="filter-btn" data-filter="quads-chest">Legs & Chest</button>
+                <button class="filter-btn" data-filter="back-shoulders">Back & Shoulders</button>
+                <button class="filter-btn" data-filter="core-arms">Core & Arms</button>
+                <button class="filter-btn" data-filter="cardio-stretching">Cardio & Mobility</button>
+            </div>
+
+            <!-- Targeted Injection Wrapper for JavaScript DOM Engine -->
+            <div class="workout-grid" id="main-dynamic-grid"></div>
+        </section>
+
+        <!-- Static Exercise Detail Workspace Window -->
+        <section id="exercise-detail-page" class="container">
+            <button class="btn btn-back" id="back-to-library">← Back to Movement Database</button>
+            
+            <div class="detail-page-layout">
+                <!-- Frame Column A: Picture Component Frame -->
+                <div>
+                    <div class="main-hero-image-wrapper">
+                        <img id="detail-hero-image" src="" alt="Active demonstration blueprint">
+                    </div>
+                    
+                    <div class="target-box">
+                        <span>🎯 Anatomical Target Focus Groups:</span>
+                        <p id="detail-target-muscles" style="color: #fff; font-size: 1rem; line-height: 1.4;"></p>
+                    </div>
+                </div>
+
+                <!-- Frame Column B: Checkpoints Panel -->
+                <div class="info-pane">
+                    <span class="tag" id="detail-page-tag">BLUEPRINT</span>
+                    <h2 id="detail-page-title">Loading...</h2>
+                    <p id="detail-page-desc" class="exercise-description"></p>
+                    
+                    <div class="instruction-box">
+                        <h4>📋 Proper Execution Steps</h4>
+                        <ol id="detail-steps-list"></ol>
+                    </div>
+
+                    <div class="mistakes-box">
+                        <h5>⚠️ Common Form Vulnerabilities</h5>
+                        <p id="detail-mistakes-text"></p>
+                    </div>
+
+                    <button id="jump-to-logger-btn" class="btn" style="width: 100%; text-align: center;">Log Performance Metrics For This Exercise</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Tracking Module -->
+    <section id="tracker" class="bg-light">
+        <div class="container tracker-container">
+            <div>
+                <h2>Log Movement Data</h2>
+                <p>Register performance volume trends safely to analyze weekly loading baselines.</p>
+                
+                <form id="log-form" style="margin-top: 15px;">
+                    <div class="form-group">
+                        <label for="exercise-select">Select Log Target</label>
+                        <select id="exercise-select" required></select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label for="weight">Load Intensity (lbs/kg)</label>
+                            <input type="number" id="weight" min="0" placeholder="0" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label for="reps">Repetition Count</label>
+                            <input type="number" id="reps" min="0" placeholder="0" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-block">Commit Log Entry</button>
+                </form>
+            </div>
+
+            <div>
+                <h3>Performance Archive</h3>
+                <div id="log-history">
+                    <p class="empty-message">No system logs found. Complete standard training entries to populate data cards.</p>
+                </div>
+                <button id="clear-btn" class="btn-secondary" style="display: none;">Wipe Storage Archive</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FlexLog Pro Architecture. Core data optimized for static display systems.</p>
+    </footer>
+
+    <script>
+        // --- DATA LAYER: 21 DETAILED STATIC BLUEPRINTS WITH PICTURE KEYSTROKES ---
+        const exerciseDatabase = {
+            "bodyweight-squat": {
+                category: "quads-chest",
+                imageUrl: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=500",
+                title: "1. The Bodyweight Squat",
+                desc: "The essential lower body framework for fundamental hip mobilization, functional depth tracking, and quad strength.",
+                targets: "Quadriceps femoris, Gluteus maximus, Hamstrings group, Transverse abdominis.",
+                mistakes: "Valgus collapse (knees bending inwards) or lifting heels off floor. Distribute pressure evenly across the triangular tripod profile of each foot.",
+                steps: [
+                    "Stand straight with feet placed between shoulder and hip-width apart, toes matching a slight 15-degree outward angle.",
+                    "Engage the core, look forward, and extend your arms to use as counterweights.",
+                    "Hinge backwards smoothly from the pelvic floor while unlocking your knees to sit down deep.",
+                    "Descend under control until your thighs achieve a clean parallel profile with the ground surface.",
+                    "Drive through your midfoot to push upward to vertical lock, squeezing glutes firm."
+                ]
+            },
+            "standard-pushup": {
+                category: "quads-chest",
+                imageUrl: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?q=80&w=500",
+                title: "2. Classical Floor Push-Up",
+                desc: "A stellar upper body horizontal push archetype enforcing total body kinetic rigidity.",
+                targets: "Pectoralis major, Anterior deltoid trunk, Triceps brachii heads, Core stabilizers.",
+                mistakes: "Sagging lower back line or flaring elbows outward near 90 degrees. Maintain an arrow-like body orientation.",
+                steps: [
+                    "Assume a solid high plank with wrists stacked plumb line under shoulder joints.",
+                    "Squeeze your glutes and quads tightly to create a completely straight line through your ears, hips, and heels.",
+                    "Inhale while lowering your chest line smoothly until your sternum sits an inch off the floor surface.",
+                    "Ensure elbows point backward at a safe 45-degree tracking angle relative to your ribs.",
+                    "Exhale with force while driving through palms to push back to standard high locked extension."
+                ]
+            },
+            "barbell-benchpress": {
+                category: "quads-chest",
+                imageUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=500",
+                title: "3. Barbell Bench Press",
+                desc: "The absolute benchmark movement for generating maximal horizontal pressing output capacity.",
+                targets: "Sternal pectoralis major, Anterior deltoids, Triceps long and lateral heads.",
+                mistakes: "Allowing your feet to dance or lift off the floor during execution, which bleeds power. Keep your heels anchored.",
+                steps: [
+                    "Lie flat on the bench, keeping your eyes positioned directly underneath the racked barbell link.",
+                    "Grip the bar slightly wider than shoulder bounds and retract your scapula flat into the cushion pad.",
+                    "Plant feet firmly, unrack the load, and settle it cleanly above your lower chest point.",
+                    "Lower the bar systematically under control until it grazes your lower sternum zone.",
+                    "Push forcefully upward while keeping your shoulder blades pinned back, securing full lock."
+                ]
+            },
+            "romanian-deadlift": {
+                category: "back-shoulders",
+                imageUrl: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=500",
+                title: "4. Romanian Deadlift (RDL)",
+                desc: "A premier hinge movement emphasizing deceleration mechanics and posterior line loading patterns.",
+                targets: "Biceps femoris, Semitendinosus, Gluteal shelf, Erector spinae columns.",
+                mistakes: "Rounding the upper lumbar zones or turning the lift into a squat movement pattern. Maintain fixed knee geometry.",
+                steps: [
+                    "Stand erect clutching a barbell or dumbbell pair along the front line of your thighs.",
+                    "Softly unlock your knees by 10 degrees, then freeze that exact joint angle completely.",
+                    "Push your hips straight back toward the wall behind you, tracking the weights close against your shins.",
+                    "Lower the load until a powerful stretching sensation is achieved throughout the hamstring belly.",
+                    "Drive your hips forward dynamically to stand tall, locking out without hyperextending your lower back."
+                ]
+            },
+            "overhead-press": {
+                category: "back-shoulders",
+                imageUrl: "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=500",
+                title: "5. Standing Overhead Press",
+                desc: "An advanced vertical push drill testing shoulder power and total midsection stability.",
+                targets: "Anterior & lateral deltoids, Supraspinatus, Serratus anterior walls, Triceps.",
+                mistakes: "Leaning excessively backward from the spine to convert the lift into an incline press. Squeeze your quadriceps hard.",
+                steps: [
+                    "Rack a barbell at upper chest height, gripping it just outside shoulder lines with vertical forearms.",
+                    "Squeeze your glutes and quads to establish a rigid foundation trunk.",
+                    "Pull your chin slightly backward to clear a vertical bar path trajectory.",
+                    "Press the bar straight overhead, keeping your core locked and ribcage pinned downward.",
+                    "Push through the top to lock out elbows, ensuring your head pushes through 'the window' at peak."
+                ]
+            },
+            "pullup-strength": {
+                category: "back-shoulders",
+                imageUrl: "https://images.unsplash.com/photo-1598971639008-54c519a4d6d1?q=80&w=500",
+                title: "6. Strict Bodyweight Pull-Up",
+                desc: "The gold standard vertical pulling movement to evaluate raw relative physical strength.",
+                targets: "Latissimus dorsi, Teres major, Brachialis, Rhomboids, Lower Trapezius.",
+                mistakes: "Kicking legs or using momentum (kipping). Maintain a hollow-body position throughout the entire hang.",
+                steps: [
+                    "Hang from a rigid pull-up bar utilizing a full overhand pronated grip wider than shoulders.",
+                    "Depress your shoulders downward away from your ears to engage your lat assets before pulling.",
+                    "Drive your elbows straight down toward your hip pockets while pulling your chest upward toward the bar.",
+                    "Ascend smoothly until your chin clears the top horizon of the bar frame.",
+                    "Lower your weight down under safe control to a absolute dead-hang starting stretch."
+                ]
+            },
+            "dumbbell-row": {
+                category: "back-shoulders",
+                imageUrl: "https://images.unsplash.com/photo-1605296867304-46d5465a25f1?q=80&w=500",
+                title: "7. Single-Arm Dumbbell Row",
+                desc: "A highly effective unilateral pull variant to correct side-to-side back volume imbalances.",
+                targets: "Latissimus dorsi, Rhomboid major, Posterior deltoids, Brachioradialis.",
+                mistakes: "Yanking the dumbbell up with momentum or letting your shoulder girdle rotate wildly out of square alignment.",
+                steps: [
+                    "Place your left knee and left hand flat on a structural bench panel, creating a flat tabletop back line.",
+                    "Hold a dumbbell in your right hand, letting it hang straight down toward the floor panel.",
+                    "Pull the weight toward your lower hip region, steering with your elbow rather than pulling with your hand.",
+                    "Squeeze your shoulder blade inward at the peak of the motion to fully contract your back musculature.",
+                    "Lower the weight back down slowly, feeling a deep stretch along the lateral edge of your shoulder blade."
+                ]
+            },
+            "barbell-deadlift": {
+                category: "back-shoulders",
+                imageUrl: "https://images.unsplash.com/photo-1603252109303-2751441dd157?q=80&w=500",
+                title: "8. Conventional Deadlift",
+                desc: "The ultimate total-body structural test that builds functional pulling power from the floor.",
+                targets: "Erector spinae, Gluteal complex, Hamstrings, Trapezius, Forearm flexors.",
+                mistakes: "Allowing the bar to drift away from your body, which spikes loading forces through the lower spine.",
+                steps: [
+                    "Walk up to a loaded bar, positioning your midfoot directly underneath the metal shaft.",
+                    "Hinge down and grip the bar firmly, keeping your hands positioned just outside your shins.",
+                    "Flatten your spine, drop your hips slightly, and pull your shoulder blades down to tension the bar.",
+                    "Push through the floor with your legs to lift the bar, keeping it locked close against your shins.",
+                    "Stand up straight into a solid lock out position by driving your hips forward into the bar."
+                ]
+            },
+            "hanging-legraise": {
+                category: "core-arms",
+                imageUrl: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=500",
+                title: "9. Hanging Leg Raise",
+                desc: "An advanced structural core configuration requiring profound grip and lower abdominal tracking stability.",
+                targets: "Rectus abdominis lower motor paths, Iliopsoas, Obliquus externus, Forearm links.",
+                mistakes: "Swinging the body back and forth to use momentum. Control the lowering phase completely.",
+                steps: [
+                    "Hang from a bar with a straight grip, letting your lower body settle completely still.",
+                    "Contract your abs tightly and raise both legs out straight in front of you.",
+                    "Bring your toes up until your legs are parallel with the floor, keeping your knees extended.",
+                    "Pause for a brief count at the top to isolate muscle contraction without using momentum.",
+                    "Lower your legs back down under strict control, resisting the urge to swing out of position."
+                ]
+            },
+            "plank-stability": {
+                category: "core-arms",
+                imageUrl: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500",
+                title: "10. RKC Forearm Plank",
+                desc: "An intensified take on the classic plank, optimized for maximal isometric core engagement.",
+                targets: "Transverse abdominis, Internal/external obliques, Gluteal floor.",
+                mistakes: "Sagging the lower back down or tenting the hips up in the air. Keep your spine in a dead-flat line.",
+                steps: [
+                    "Rest your weight on your forearms and toes, keeping your elbows aligned directly beneath your shoulders.",
+                    "Clench your fists tight and lock your legs straight out, creating a rigid platform.",
+                    "Actively pull your elbows toward your toes and squeeze your glutes hard to engage your core.",
+                    "Take shallow, controlled breaths while maintaining high isometric tension across your midsection.",
+                    "Keep your neck relaxed and gaze fixed on the space between your hands to avoid straining your neck."
+                ]
+            },
+            "bicep-curl": {
+                category: "core-arms",
+                imageUrl: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=500",
+                title: "11. Dumbbell Biceps Curl",
+                desc: "An isolated arm training drill focused on working the arm flexor muscles through a full range of motion.",
+                targets: "Biceps brachii long/short heads, Brachialis, Pronator teres.",
+                mistakes: "Swinging your hips forward or pulling your elbows backward to cheat the weight up.",
+                steps: [
+                    "Stand tall with a dumbbell in each hand, palms facing forward and elbows tucked close to your ribs.",
+                    "Keep your shoulders pinned back and curl the weights upward toward your chest.",
+                    "Squeeze your biceps hard at the top of the movement, keeping your upper arms stationary.",
+                    "Lower the weights back down slowly, keeping tension on your arms until they are fully extended.",
+                    "Turn your hands slightly outward at the bottom of each rep to maximize the muscular stretch."
+                ]
+            },
+            "tricep-dip": {
+                category: "core-arms",
+                imageUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=500",
+                title: "12. Parallel Bar Dip",
+                desc: "A powerful bodyweight pushing movement that develops great size and strength across the arms and chest.",
+                targets: "Triceps brachii all three heads, Pectoralis minor, Anterior deltoids.",
+                mistakes: "Dropping down too fast or letting your shoulders cave forward at the bottom of the movement.",
+                steps: [
+                    "Hoist yourself up on a pair of parallel bars, locking your arms out straight with a proud chest.",
+                    "Lean your torso forward slightly and bend your knees to clear the floor.",
+                    "Lower your body smoothly by bending your elbows until your upper arms are parallel to the bars.",
+                    "Keep your elbows tucked close to your sides rather than letting them flare outward.",
+                    "Push down firmly through your palms to return to the starting position, locking out your arms."
+                ]
+            },
+            "barbell-lunges": {
+                category: "quads-chest",
+                imageUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=500",
+                title: "13. Dumbbell Walking Lunge",
+                desc: "A dynamic lower body exercise that targets single-leg stability, hip mobility, and balance.",
+                targets: "Quadriceps femoris, Gluteus medius, Adductor magnus, Core musculature.",
+                mistakes: "Letting your front knee cave inward or letting your torso collapse forward over your front thigh.",
+                steps: [
+                    "Stand straight holding a dumbbell in each hand at your sides, with feet placed hip-width apart.",
+                    "Take a controlled step forward with your right leg, shifting your weight onto your front foot.",
+                    "Lower your hips until your back knee drops down to hover just an inch off the floor surface.",
+                    "Ensure your front thigh is parallel to the ground, keeping your front knee aligned over your ankle.",
+                    "Drive forward through your front heel to step your back foot up and transition into the next stride."
+                ]
+            },
+            "calf-raises": {
+                category: "quads-chest",
+                imageUrl: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=500",
+                title: "14. Standing Calf Raise",
+                desc: "A simple isolated exercise designed to target lower leg density and ankle joint stability.",
+                targets: "Gastrocnemius lateral/medial bellies, Soleus flat layer, Achilles tendon link.",
+                mistakes: "Bouncing quickly at the bottom of the movement instead of using controlled muscle power.",
+                steps: [
+                    "Stand on the edge of a sturdy step block, letting your heels hang off the back edge into a deep stretch.",
+                    "Hold onto a stable wall or rail support lightly to maintain steady vertical balance.",
+                    "Press down through the balls of your feet to raise your heels as high as possible.",
+                    "Squeeze your lower leg muscles tightly at the top of the movement for a brief count.",
+                    "Lower your heels down slowly past the step edge to feel a deep stretch through your calf muscles."
+                ]
+            },
+            "lateral-raises": {
+                category: "back-shoulders",
+                imageUrl: "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=500",
+                title: "15. Dumbbell Lateral Raise",
+                desc: "The go-to movement for developing shoulder width and a classic V-tapered upper body look.",
+                targets: "Lateral deltoid head, Supraspinatus anchor, Upper trapezius line.",
+                mistakes: "Shrugging the weights upward with your neck or swinging your body back and forth to lift the load.",
+                steps: [
+                    "Stand tall holding a pair of dumbbells at your sides, with your torso leaning forward just slightly.",
+                    "Raise your arms out to the sides along a wide arc, leading the movement with your elbows.",
+                    "Lift the weights until your arms are parallel to the floor, keeping your pinkies rotated slightly up.",
+                    "Pause briefly at the peak of the movement before lowering the weights back down under control.",
+                    "Stop the dumbbells just short of your thighs at the bottom to maintain constant tension on the muscle."
+                ]
+            },
+            "face-pulls": {
+                category: "back-shoulders",
+                imageUrl: "https://images.unsplash.com/photo-1605296867304-46d5465a25f1?q=80&w=500",
+                title: "16. Cable Face Pull",
+                desc: "An effective upper back exercise designed to fix bad posture and reinforce shoulder health.",
+                targets: "Posterior deltoid, Infraspinatus, Middle trapezius, Rhomboid muscle groups.",
+                mistakes: "Pulling the weight with your hands instead of using your rear shoulders, or using too much weight.",
+                steps: [
+                    "Set a cable pulley machine to upper chest height and grip the attached rope ends with your thumbs up.",
+                    "Step back from the machine to lift the weight stack, extending your arms straight out.",
+                    "Pull the rope directly toward your nose, flaring your elbows out high and wide to lead the movement.",
+                    "Rotate your hands back externally at the end of the pull to form a 'double bicep' posture.",
+                    "Return the weight slowly back to the starting stretch, keeping your shoulder blades controlled."
+                ]
+            },
+            "ab-wheel": {
+                category: "core-arms",
+                imageUrl: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500",
+                title: "17. Ab Wheel Rollout",
+                desc: "An advanced anti-extension core exercise that builds exceptional deep midsection stability.",
+                targets: "Rectus abdominis wall, Transverse abdominis, Latissimus dorsi stabilization.",
+                mistakes: "Letting your lower back sag down toward the floor, which pinches your spine painfully.",
+                steps: [
+                    "Kneel on a soft mat, holding the handles of an ab wheel positioned directly underneath your shoulders.",
+                    "Tuck your tailbone slightly and round your upper back into a strong, hollow position.",
+                    "Roll the wheel forward slowly, extending your torso long while keeping your core braced tightly.",
+                    "Go out as far as you can comfortably control without letting your lower back sag down.",
+                    "Contract your abs hard and pull the wheel back toward your knees to return to the start."
+                ]
+            },
+            "hammer-curl": {
+                category: "core-arms",
+                imageUrl: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=500",
+                title: "18. Dumbbell Hammer Curl",
+                desc: "An effective arm curl variation that targets forearm thickness and builds safer wrist stability.",
+                targets: "Brachioradialis forearm link, Brachialis deep arm layer, Biceps brachii.",
+                mistakes: "Rotating your wrists during the movement. Keep your palms facing each other throughout the lift.",
+                steps: [
+                    "Stand straight holding a pair of dumbbells with a neutral grip, palms facing inward toward each other.",
+                    "Keep your elbows pinned tight to your sides and curl the weights up toward your shoulders.",
+                    "Squeeze your forearms and biceps hard at the peak of the movement to maximize contraction.",
+                    "Lower the dumbbells back down under control, extending your arms fully at the bottom.",
+                    "Avoid swinging your torso to get the weights moving; keep your posture completely steady."
+                ]
+            },
+            "kettlebell-swing": {
+                category: "cardio-stretching",
+                imageUrl: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=500",
+                title: "19. Kettlebell Swing",
+                desc: "A powerful ballistic exercise that blends explosive hip power with high-intensity cardio conditioning.",
+                targets: "Gluteal complex, Hamstrings, Erector spinae, Cardiovascular system.",
+                mistakes: "Squatting down instead of hinging from the hips, or pulling the weight up using your arms.",
+                steps: [
+                    "Stand with feet slightly wider than shoulder-width, placing a kettlebell a foot in front of you.",
+                    "Hinge back at the hips, grip the handle firmly, and tilt the weight toward your body.",
+                    "Hike the kettlebell back between your legs close to your groin to load your hamstrings.",
+                    "Drive your hips forward dynamically to snap up straight, letting the weight swing up to chest height.",
+                    "Let the weight fall back down naturally, hinging at the hips to absorb the force into the next rep."
+                ]
+            },
+            "mountain-climbers": {
+                category: "cardio-stretching",
+                imageUrl: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?q=80&w=500",
+                title: "20. Mountain Climber",
+                desc: "A fast-paced bodyweight movement that challenges core endurance while ramping up your heart rate.",
+                targets: "Rectus abdominis, Deltoids stabilizer framework, Hip flexor links, Cardiorespiratory system.",
+                mistakes: "Bouncing your hips up high in the air or letting your hands drift forward out from under your shoulders.",
+                steps: [
+                    "Set up in a solid high plank position with your hands stacked directly under your shoulders.",
+                    "Pull your right knee forward toward your chest, keeping your toes lifted off the floor.",
+                    "Drive that leg back out straight while simultaneously snapping your left knee forward toward your chest.",
+                    "Run your feet back and forth at a quick pace, keeping your hips steady and level.",
+                    "Maintain steady, consistent breathing while keeping your core engaged to protect your lower back."
+                ]
+            },
+            "cobra-stretch": {
+                category: "cardio-stretching",
+                imageUrl: "https://images.unsplash.com/photo-1603988363607-e1e4a66962c6?q=80&w=500",
+                title: "21. The Cobra Stretch",
+                desc: "A classical extension posture designed to open up tight abdominals and relieve a stiff lower back.",
+                targets: "Rectus abdominis, Pectoralis major, Anterior deltoid structures, Lumbar column links.",
+                mistakes: "Shrugging your shoulders up near your ears. Keep your neck long and pull your shoulders down.",
+                steps: [
+                    "Lie flat on your stomach on an exercise mat, extending your legs out straight behind you.",
+                    "Place your palms flat on the mat directly underneath your shoulders, keeping your elbows tucked close to your ribs.",
+                    "Inhale deeply and use your back muscles to gently peel your chest up away from the floor.",
+                    "Press down into your hands to deepen the stretch, keeping your hips pinned flat against the mat.",
+                    "Pull your shoulders down and away from your ears, holding the deep stretch for 20 to 30 seconds."
+                ]
+            }
+        };
+
+        // --- RENDER ENGINE: INJECT MOVEMENT CARDS INTO MAIN GRID ---
+        function renderExerciseLibrary() {
+            const grid = document.getElementById('main-dynamic-grid');
+            const selectDropdown = document.getElementById('exercise-select');
+            
+            grid.innerHTML = '';
+            selectDropdown.innerHTML = '<option value="" disabled selected>Choose from list...</option>';
+
+            Object.keys(exerciseDatabase).forEach(key => {
+                const item = exerciseDatabase[key];
+
+                // 1. Build Grid Cards HTML
+                const card = document.createElement('div');
+                card.className = 'workout-card';
+                card.setAttribute('data-category', item.category);
+                card.setAttribute('data-id', key);
+
+                card.innerHTML = `
+                    <div class="photo-container">
+                        <img src="${item.imageUrl}" alt="${item.title}">
+                    </div>
+                    <div class="card-content">
+                        <span class="tag">${item.category.replace('-', ' & ')}</span>
+                        <h3>${item.title}</h3>
+                        <p>${item.desc}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+
+                // 2. Populate Dropdown Selection Panel
+                const option = document.createElement('option');
+                option.value = item.title.replace(/^\d+\.\s+/, ''); // Strip number formatting prefix
+                option.textContent = item.title;
+                selectDropdown.appendChild(option);
+            });
+        }
+
+        // --- ROUTING ENGINE: SYSTEM LISTENERS ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderExerciseLibrary();
+
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const heroSection = document.getElementById('hero-section');
+            const filtersWrapper = document.querySelector('.filters');
+            const workoutGrid = document.getElementById('main-dynamic-grid');
+            const workoutsHeader = document.querySelector('#workouts h2');
+            const workoutsSubtext = document.querySelector('#workouts p');
+
+            const detailPage = document.getElementById('exercise-detail-page');
+            const detailHeroImage = document.getElementById('detail-hero-image');
+            const detailPageTitle = document.getElementById('detail-page-title');
+            const detailPageDesc = document.getElementById('detail-page-desc');
+            const detailPageTag = document.getElementById('detail-page-tag');
+            const detailStepsList = document.getElementById('detail-steps-list');
+            const detailMistakesText = document.getElementById('detail-mistakes-text');
+            const detailTargetMuscles = document.getElementById('detail-target-muscles');
+
+            const backToLibraryBtn = document.getElementById('back-to-library');
+            const logoBtn = document.getElementById('logo-btn');
+            const navWorkouts = document.getElementById('nav-workouts');
+            const jumpToLoggerBtn = document.getElementById('jump-to-logger-btn');
+
+            // Category Filter Filter chips
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const filterValue = button.getAttribute('data-filter');
+                    const cards = document.querySelectorAll('.workout-card');
+                    
+                    cards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Card Routing Engine
+            workoutGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.workout-card');
+                if (!card) return;
+
+                const id = card.getAttribute('data-id');
+                const data = exerciseDatabase[id];
+                if (!data) return;
+
+                // Hide Main Dashboard Grid components
+                heroSection.style.display = 'none';
+                filtersWrapper.style.display = 'none';
+                workoutGrid.style.display = 'none';
+                workoutsHeader.style.display = 'none';
+                workoutsSubtext.style.display = 'none';
+
+                // Map Content to Workspace Fields
+                detailHeroImage.src = data.imageUrl;
+                detailHeroImage.alt = data.title;
+                detailPageTitle.textContent = data.title;
+                detailPageDesc.textContent = data.desc;
+                detailPageTag.textContent = data.category.toUpperCase().replace('-', ' / ');
+                detailTargetMuscles.textContent = data.targets;
+                detailMistakesText.textContent = data.mistakes;
+
+                detailStepsList.innerHTML = '';
+                data.steps.forEach(step => {
+                    const li = document.createElement('li');
+                    li.textContent = step;
+                    detailStepsList.appendChild(li);
+                });
+
+                detailPage.style.display = 'block';
+                window.scrollTo(0, 0);
+            });
+
+            function showDashboardView() {
+                detailPage.style.display = 'none';
+                heroSection.style.display = 'block';
+                filtersWrapper.style.display = 'flex';
+                workoutGrid.style.display = 'grid';
+                workoutsHeader.style.display = 'block';
+                workoutsSubtext.style.display = 'block';
+            }
+
+            backToLibraryBtn.addEventListener('click', showDashboardView);
+            logoBtn.addEventListener('click', showDashboardView);
+            navWorkouts.addEventListener('click', showDashboardView);
+
+            jumpToLoggerBtn.addEventListener('click', () => {
+                const targetTitle = detailPageTitle.textContent.replace(/^\d+\.\s+/, '');
+                document.getElementById('exercise-select').value = targetTitle;
+                showDashboardView();
+                document.getElementById('tracker').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // --- TRACKING ENGINE: STORAGE HANDLERS ---
+            const logForm = document.getElementById('log-form');
+            const logHistory = document.getElementById('log-history');
+            const clearBtn = document.getElementById('clear-btn');
+
+            function displaySavedEntries() {
+                const entries = JSON.parse(localStorage.getItem('workoutLogsPro')) || [];
+                if (entries.length === 0) {
+                    logHistory.innerHTML = '<p class="empty-message">No system logs found. Complete standard training entries to populate data cards.</p>';
+                    clearBtn.style.display = 'none';
+                    return;
+                }
+
+                clearBtn.style.display = 'inline-block';
+                logHistory.innerHTML = '';
+
+                for (let i = entries.length - 1; i >= 0; i--) {
+                    const dataRow = entries[i];
+                    const row = document.createElement('div');
+                    row.className = 'log-item';
+                    row.innerHTML = `
+                        <div>
+                            <strong>${dataRow.name}</strong><br>
+                            <span>${dataRow.load} kg/lbs × ${dataRow.repsCount} reps</span>
+                        </div>
+                        <span>${dataRow.timestamp}</span>
+                    `;
+                    logHistory.appendChild(row);
+                }
+            }
+
+            logForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('exercise-select').value;
+                const load = document.getElementById('weight').value;
+                const repsCount = document.getElementById('reps').value;
+                const timestamp = new Date().toLocaleDateString();
+
+                if(!name) { alert("Please select an exercise name from the menu list."); return; }
+
+                const archive = JSON.parse(localStorage.getItem('workoutLogsPro')) || [];
+                archive.push({ name, load, repsCount, timestamp });
+                localStorage.setItem('workoutLogsPro', JSON.stringify(archive));
+                
+                logForm.reset();
+                displaySavedEntries();
+            });
+
+            clearBtn.addEventListener('click', () => {
+                if (confirm("Are you sure you want to permanently erase your training performance data?")) {
+                    localStorage.removeItem('workoutLogsPro');
+                    displaySavedEntries();
+                }
+            });
+
+            displaySavedEntries();
+        });
+    </script>
+</body>
+</html>
